@@ -2,8 +2,7 @@
 $File = "AX_Duffy_1518_Byte_fixed_UDP_UniDir_Bridge_B2Y_CPU"
 $inputFile = "$File.txt"
 $outputFile = "$File.csv"
-#$inputFile = "AX_Secom_64_Byte_Random_UDP_UniDir_Router_B2B_CPU.txt"
-#$outputFile = "AX_Secom_64_Byte_Random_UDP_UniDir_Router_B2B_CPU.csv"
+
 
 # 讀取檔案內容
 $content = Get-Content $inputFile
