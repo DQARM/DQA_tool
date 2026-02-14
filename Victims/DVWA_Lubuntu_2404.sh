@@ -66,7 +66,7 @@ echo ">> 啟動 DVWA 容器..."
 
 # 9. 使用者加到docker Group
 usermod -aG docker $(logname)
-newgrp
+newgrp docker
 
 echo "=========================================="
 echo "安裝完成！"
