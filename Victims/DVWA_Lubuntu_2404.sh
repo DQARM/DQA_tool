@@ -7,7 +7,7 @@
 # 1. 檢查是否為 Root 使用者
 if [ "$(id -u)" != "0" ]; then
    echo "錯誤: 此腳本必須以 root 權限執行。"
-   echo "請使用: sudo ./setup_dvwa.sh"
+   echo "請使用: sudo ./DVWA_Lubuntu_2404.sh"
    exit 1
 fi
 
@@ -56,7 +56,7 @@ sed -i 's/127.0.0.1:4280/0.0.0.0:80/g' "$CONFIG_FILE"
 
 # 7. 修改環境變數 (設置 Security Level)
 # 注意：確保 yq 語法正確應用
-yq -i '.services.dvwa.environment += ["DEFAULT_SECURITY_LEVEL=impossible"]' "$CONFIG_FILE"
+yq -y -i '.services.dvwa.environment += ["DEFAULT_SECURITY_LEVEL=impossible"]' "$CONFIG_FILE"
 
 # 8. 啟動容器
 echo ">> 啟動 DVWA 容器..."
