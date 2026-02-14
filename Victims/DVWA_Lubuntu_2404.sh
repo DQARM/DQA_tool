@@ -56,7 +56,7 @@ sed -i 's/127.0.0.1:4280/0.0.0.0:80/g' "$CONFIG_FILE"
 
 # 7. 修改環境變數 (設置 Security Level)
 # 注意：確保 yq 語法正確應用
-yq -y -i '.services.dvwa.environment += ["DEFAULT_SECURITY_LEVEL=impossible"]' "$CONFIG_FILE"
+yq -y -i '.services.dvwa.environment += ["DEFAULT_SECURITY_LEVEL=low"]' "$CONFIG_FILE"
 
 # 8. 啟動容器
 echo ">> 啟動 DVWA 容器..."
