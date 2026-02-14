@@ -2,6 +2,8 @@
 
 # ==========================================
 # DVWA 自動化安裝腳本
+# Tested OS:
+# (1)Lubuntu 24.04.4
 # ==========================================
 
 # 1. 檢查是否為 Root 使用者
@@ -61,6 +63,10 @@ yq -y -i '.services.dvwa.environment += ["DEFAULT_SECURITY_LEVEL=low"]' "$CONFIG
 # 8. 啟動容器
 echo ">> 啟動 DVWA 容器..."
 /usr/local/bin/docker-compose up -d
+
+# 9. 使用者加到docker Group
+usermod -aG docker $(logname)
+newgrp
 
 echo "=========================================="
 echo "安裝完成！"
