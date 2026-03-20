@@ -1,0 +1,45 @@
+Commands to setup Web Server Log Poison
+1. sudo nano /usr/local/bin/vuln-logs.sh
+2. #!/bin/bash
+# 等待一小段時間確保 apache 已經完全啟動並建立/touch了日誌檔
+sleep 5
+
+# 檢查目錄是否存在並修改權限
+if [ -d "/var/log/apache2" ]; then
+    chmod 755 /var/log/apache2
+fi
+
+# 檢查檔案是否存在並修改權限
+if [ -f "/var/log/apache2/access.log" ]; then
+    chmod 777 /var/log/apache2/access.log
+fi
+3. sudo chmod +x /usr/local/bin/vuln-logs.sh
+
+4. sudo nano /etc/systemd/system/vuln-logs.service
+
+5. [Unit]
+Description=Set Vulnerable Permissions for Apache Logs
+# 確保在 apache2 啟動後才執行此服務
+After=apache2.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/vuln-logs.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+6.
+sudo systemctl daemon-reload
+sudo systemctl enable vuln-logs.service
+
+7.
+sudo systemctl start vuln-logs.service
+
+8.
+ls -ld /var/log/apache2
+ls -l /var/log/apache2/access.log
+
+9.
+修改 /etc/logrotate.d/apache2 檔案，將裡面 create 640 root adm 這一行改成 create 777 root adm。
